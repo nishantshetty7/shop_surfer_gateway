@@ -12,3 +12,16 @@ services:
     image: shopsurfer_gateway:latest
     container_name: shopsurfer_gateway
     command: "uvicorn main:app --host 0.0.0.0 --reload"
+    network_mode: "host"
+
+  shopsurfer_nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    container_name: shopsurfer_nginx
+    depends_on:
+      - shopsurfer_gateway
+    restart: always
+    network_mode: "host"

@@ -14,13 +14,13 @@ async def login(payload: dict):
         
         if response.status_code == 200:
             # Extract the specific cookie from the response
-            specific_cookie = response.cookies.get("jwt")
+            refresh_token = response.cookies.get("jwt")
             
             # Create a response with the specific cookie set as HTTP-only and expires in one hour
             api_response = Response(content=response.text)
             api_response.set_cookie(
                 key="jwt",
-                value=specific_cookie,
+                value=refresh_token,
                 httponly=True,
                 expires=3600, 
                 secure=True,
@@ -40,13 +40,13 @@ async def google_login(payload: dict):
         
         if response.status_code == 200:
             # Extract the specific cookie from the response
-            specific_cookie = response.cookies.get("jwt")
+            refresh_token = response.cookies.get("jwt")
             
             # Create a response with the specific cookie set as HTTP-only and expires in one hour
             api_response = Response(content=response.text)
             api_response.set_cookie(
                 key="jwt",
-                value=specific_cookie,
+                value=refresh_token,
                 httponly=True,
                 expires=3600, 
                 secure=True,
