@@ -7,6 +7,11 @@ from typing import List
 from fastapi.encoders import jsonable_encoder
 from main import DATA_API
 
+class Item(BaseModel):
+    is_selected: bool
+    product: dict
+    quantity: int
+
 router = APIRouter()
 
 @router.get("/")
@@ -37,11 +42,6 @@ async def add_cart_item(request_data: dict, payload: dict = Depends(authorize)):
             return response.json()
         else:
             raise HTTPException(status_code=response.status_code, detail=response.text)
-
-class Item(BaseModel):
-    is_selected: bool
-    product: dict
-    quantity: int
 
 @router.post("/merge/")
 async def merge_cart(request_data: List[Item], payload: dict = Depends(authorize)):

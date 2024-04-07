@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 
 from fastapi.middleware.cors import CORSMiddleware
+from decouple import config
 
-AUTH_API = "http://localhost:8001"
-DATA_API = "http://localhost:8002"
+AUTH_API = config("AUTH_API", default="auth_api")
+DATA_API = config("DATA_API", default="data_api")
 
 app = FastAPI()
 
@@ -11,7 +12,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # Replace with your frontend origin
     "http://localhost:8000", # If running frontend and backend on separate ports
-    "http://api.shopsurfer.com"
+    "https://shopsurfer.netlify.app"
 ]
 
 app.add_middleware(
